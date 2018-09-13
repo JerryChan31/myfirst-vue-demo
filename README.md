@@ -1,4 +1,21 @@
 # myfirst-vue-demo
-我的第一个Vue项目 - 注册登录
 
-做中学！
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
