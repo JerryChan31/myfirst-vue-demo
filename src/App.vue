@@ -1,28 +1,78 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <left-column></left-column>
+    <base-list v-bind:twoList="list"></base-list>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import BaseList from './components/BaseList.vue'
+import LeftColumn from './components/LeftColumn.vue'
+/*
+function listItem( id, title, deadline, value, isStarred) {
+  var res = new Object();
+  res.itemId = id;
+  res.title = title;
+  res.deadline = deadline;
+  res.value = value;
+  res.isStarred = isStarred;
+  return res;
+}
+*/
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
+    BaseList,
+    LeftColumn
+  },
+  data: function () {
+    return {
+      list: {
+        todoList: [{
+          itemId: 1,
+          title: 'todo1',
+          deadline: 'today',
+          value: false,
+          isStarred: false
+        }, {
+          itemId: 2,
+          title: 'todo2',
+          deadline: 'tomorrow',
+          value: false,
+          isStarred: false
+        }],
+        completedList: [{
+          itemId: 3,
+          title: 'todo3',
+          deadline: 'yesterday',
+          value: true,
+          isStarred: false
+        }, {
+          itemId: 4,
+          title: 'todo4',
+          deadline: 'yesterday',
+          value: true,
+          isStarred: false
+        }]
+      }
+    }
   }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  align-items: flex-start;
+}
+</style>
+
+<style lang="less">
+body {
+  background-image: linear-gradient(to right, #9ACBAB, #F7E3A8);
+  margin: 0;
 }
 </style>
