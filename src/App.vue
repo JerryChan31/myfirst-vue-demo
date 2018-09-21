@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <left-column></left-column>
+    <left-column v-bind:personalList="personalList"></left-column>
     <base-list v-bind:twoList="list"></base-list>
   </div>
 </template>
@@ -30,6 +30,13 @@ export default {
   },
   data: function () {
     return {
+      personalList: [
+        {
+          name: 'list1'
+        },{
+          name: 'list2'
+        }
+      ],
       list: {
         todoList: [{
           itemId: 1,
@@ -66,7 +73,9 @@ export default {
 <style lang="less" scoped>
 #app {
   display: flex;
-  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
 }
 </style>
 
@@ -74,5 +83,9 @@ export default {
 body {
   background-image: linear-gradient(to right, #9ACBAB, #F7E3A8);
   margin: 0;
+  height: 100%;
+}
+html {  
+  height: 100%;
 }
 </style>

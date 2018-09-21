@@ -1,5 +1,9 @@
 <template>
   <div class="baselist">
+    <div class="add-item">
+      <v-icon name="plus"></v-icon>
+      <input type="text" placeholder="Add a todo">
+    </div>
     <div>
       <base-item v-for="(todo, index) in myTodoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="moveToCompleted(index)"></base-item>
     </div>
@@ -61,6 +65,8 @@ export default {
   @togglebutton-not-selected: #71AF8C;
   @togglebutton-selected: #5F8D73;
   @completeditem-color: #a9a9a9;
+  @base-list-margin:20px 20px 20px 20px;
+  @add-item-background-color: #7eb694;
 
   label {
     display: inline-flex;
@@ -88,5 +94,19 @@ export default {
   .baselist {
     display: block;
     flex: 1 1 auto;
+    margin: @base-list-margin;
+  }
+  .add-item {
+    display: flex;
+    background-color: @add-item-background-color;
+    align-items: center;
+    input {
+      flex:1;
+      background-color: inherit;
+      border: 0;
+    }
+    .fa-icon {
+      color: white;
+    }
   }
 </style>
