@@ -21,9 +21,9 @@
       <label> Inbox </label>
     </div>
     <div class="personal-list">
-      <div class="personal-list-item" v-for="(list, index) in personalList" :key="index">
+      <div class="personal-list-item" v-for="(list, index) in listname" :key="index">
         <v-icon name="list-ul" />
-        <span>{{ list.name }}</span>
+        <span>{{ list }}</span>
       </div>
     </div>
   </div>
@@ -31,15 +31,27 @@
 
 <script>
 export default {
+  
   components: {
-
+    
+  },
+  computed: {
+    username () {
+      return this.$store.state.userInfo.username;
+    },
+    prfImg () {
+      return this.$store.state.userInfo.prfImg;
+    },
+    listname () {
+      return this.$store.state.listname;
+    }
   },
   props: {
     personalList: Array
   },
   data: function () {
     return {
-      username: 'JerryChan'
+      
     }
   }
 }

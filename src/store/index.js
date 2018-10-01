@@ -1,26 +1,44 @@
 import Vue from 'vue'
-import Vuex from 'vuex';
+import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const state = {
-    testMsg: '原始文本',
-    childText:"子组件原始文本"
-}
-
-const mutations = {
-    changeTestMsg(state, str){
-        state.testMsg = str;
+export default new Vuex.Store({
+  state: {
+    userInfo: {
+      username: "JerryChan",
+      prfImg: "../assets/logo.png"
     },
-    changeChildText(state, str){
-        state.childText = str;
-    }
-
-}
-
-const store = new Vuex.Store({
-    state: state,
-    mutations: mutations
+    inbox:{
+      todoList:[{
+        itemId: 1,
+        title: 'todo1',
+        deadline: 'today',
+        value: false,
+        isStarred: false
+        }, {
+        itemId: 2,
+        title: 'todo2',
+        deadline: 'tomorrow',
+        value: false,
+        isStarred: false
+      }],
+      completedList: [{
+        itemId: 3,
+        title: 'todo3',
+        deadline: 'yesterday',
+        value: true,
+        isStarred: false
+        }, {
+        itemId: 4,
+        title: 'todo4',
+        deadline: 'yesterday',
+        value: true,
+        isStarred: false
+      }]
+    },
+    selfList: []
+  }
 })
 
-export default store;
+

@@ -2,23 +2,24 @@
   <div class="baselist">
     <div class="add-item">
       <v-icon name="plus"></v-icon>
-      <input type="text" placeholder="Add a todo">
+      <input type="text" placeholder="Add a todo" v-model="addText" @focus="toggleAddFocusStatus(true)" @blur="toggleAddFocusStatus(false)" @keyup.enter="addItem()" >
     </div>
     <div>
-      <base-item v-for="(todo, index) in myTodoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="moveToCompleted(index)"></base-item>
+      <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="moveToCompleted(index)"></base-item>
     </div>
     <div>
-      <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ myCompletedList.length }} COMPLETED TO-DOS </label>
+      <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
       <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
     </div>
     <div v-show="isCompletedShown">
-      <base-item class="completed-item" v-for="(todo, index) in myCompletedList" v-bind="todo" :key="todo.itemId" v-on:change="moveToTodo(index)"></base-item>
+      <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="moveToTodo(index)"></base-item>
     </div>
   </div>
 </template>
 
 <script>
 import BaseItem from './BaseItem.vue'
+
 export default {
   name: 'BaseList',
   props: {
@@ -31,7 +32,14 @@ export default {
     return {
       isCompletedShown: false,
       myTodoList: this.twoList.todoList,
-      myCompletedList: this.twoList.completedList
+      myCompletedList: this.twoList.completedList,
+      isAddOnFocus: false,
+      addText: "",
+    }
+  },
+  computed: {
+    showingList () {
+      return this.$store.state.inbox;
     }
   },
   components: {
@@ -52,6 +60,20 @@ export default {
     },
     toggleShowCompleted: function (status) {
       this.isCompletedShown = status;
+    },
+    toggleAddFocusStatus: function (isFocused) {
+      this.isAddOnFocus = isFocused;
+    },
+    addItem: function() {
+      if (this.addText.length !== 0 && this.isAddOnFocus == true) {
+        this.myTodoList.push({
+        itemId: 4,
+        title: this.addText,
+        deadline: 'yesterday',
+        value: false,
+        isStarred: false
+      })
+      }
     }
   }
 }
@@ -67,7 +89,12 @@ export default {
   @completeditem-color: #a9a9a9;
   @base-list-margin:20px 20px 20px 20px;
   @add-item-background-color: #7eb694;
-
+  @icon-margin: 20px 20px 20px 20px;
+  @icon-width:20px;
+  @icon-height: 20px;
+  @item-height: 60px;
+  @text-size: 20px;
+  @add-item-margin: 10px 0 30px 0;
   label {
     display: inline-flex;
     font-size: @togglebutton-font-size;
@@ -77,7 +104,6 @@ export default {
     padding: @togglebutton-padding;
     align-items: center;    
     user-select: none;
-
     &.notshowing {
       background-color: @togglebutton-not-selected;
       &:hover {
@@ -100,13 +126,24 @@ export default {
     display: flex;
     background-color: @add-item-background-color;
     align-items: center;
+    height: @item-height;
+    margin: @add-item-margin;
     input {
       flex:1;
       background-color: inherit;
       border: 0;
+      font-size: 20px;
+      outline: none;
+      color: white;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: white;
     }
     .fa-icon {
       color: white;
+      margin: @icon-margin;
+      width: @icon-width;
+      height: @icon-height;
     }
   }
 </style>
