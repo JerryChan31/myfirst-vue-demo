@@ -5,14 +5,14 @@
       <input type="text" placeholder="Add a todo" v-model="addText" @focus="toggleAddFocusStatus(true)" @blur="toggleAddFocusStatus(false)" @keyup.enter="addItem()" >
     </div>
     <div>
-      <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="moveToCompleted(index)"></base-item>
+      <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
     </div>
     <div>
       <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
       <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
     </div>
     <div v-show="isCompletedShown">
-      <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="moveToTodo(index)"></base-item>
+      <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
     </div>
   </div>
 </template>
@@ -31,8 +31,6 @@ export default {
   data: function () {
     return {
       isCompletedShown: false,
-      myTodoList: this.twoList.todoList,
-      myCompletedList: this.twoList.completedList,
       isAddOnFocus: false,
       addText: "",
     }
@@ -46,17 +44,12 @@ export default {
     BaseItem
   },
   methods: {
-    moveToCompleted: function (index) {
-      this.myTodoList[index].value = true;
-      var temp = this.myTodoList[index];
-      this.myTodoList.splice(index, 1);
-      this.myCompletedList.push(temp);
+    
+    itemDone: function (index) {
+      this.$store.commit("itemDone", index);
     },
-    moveToTodo: function (index) {
-      this.myCompletedList[index].value = false;
-      var temp = this.myCompletedList[index];
-      this.myCompletedList.splice(index, 1);
-      this.myTodoList.push(temp);
+    itemCancelDone: function (index) {
+      this.$store.commit("itemCancelDone", index);
     },
     toggleShowCompleted: function (status) {
       this.isCompletedShown = status;
@@ -66,13 +59,14 @@ export default {
     },
     addItem: function() {
       if (this.addText.length !== 0 && this.isAddOnFocus == true) {
-        this.myTodoList.push({
-        itemId: 4,
-        title: this.addText,
-        deadline: 'yesterday',
-        value: false,
-        isStarred: false
-      })
+        this.$store.commit("addItem", {
+          itemId: this.$store.state.itemCount + 1,
+          title: this.addText,
+          deadline: '',
+          value: false,
+          isStarred: false
+        });
+        this.addText = "";
       }
     }
   }
@@ -80,6 +74,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
   @togglebutton-font-size: 15px;
   @togglebutton-height: 38px;
   @togglebutton-padding: 0 15px 0 15px;
@@ -95,6 +90,7 @@ export default {
   @item-height: 60px;
   @text-size: 20px;
   @add-item-margin: 10px 0 30px 0;
+
   label {
     display: inline-flex;
     font-size: @togglebutton-font-size;

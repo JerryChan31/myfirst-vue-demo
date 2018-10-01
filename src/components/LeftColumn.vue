@@ -31,7 +31,6 @@
 
 <script>
 export default {
-  
   components: {
     
   },
@@ -161,4 +160,5 @@ export default {
     color: black;
   }
 }
+
 </style>

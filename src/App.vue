@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <left-column v-bind:personalList="personalList"></left-column>
-    <base-list v-bind:twoList="list"></base-list>
+    <left-column></left-column>
+    <base-list></base-list>
   </div>
 </template>
 
@@ -29,18 +29,7 @@ export default {
     LeftColumn
   },
   data: function () {
-    return {
-      personalList: [
-        {
-          name: 'list1'
-        },{
-          name: 'list2'
-        }
-      ],
-      list: {
-        todoList: []
-      }
-    }
+    return {}
   }
 }
 </script>
