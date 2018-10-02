@@ -16,14 +16,14 @@
         <v-icon name="regular/comment" class="comment"/>
       </span>
     </div>
-    <div class="inbox">
+    <div class="inbox" @click="clickInbox">
       <v-icon name="inbox" />
       <label> Inbox </label>
     </div>
     <div class="personal-list">
-      <div class="personal-list-item" v-for="(list, index) in listname" :key="index">
+      <div class="personal-list-item" v-for="(list, index) in selfList" :key="index" @click="clickSelfList(index)">
         <v-icon name="list-ul" />
-        <span>{{ list }}</span>
+        <span>{{ list.listName }}</span>
       </div>
     </div>
   </div>
@@ -31,9 +31,6 @@
 
 <script>
 export default {
-  components: {
-    
-  },
   computed: {
     username () {
       return this.$store.state.userInfo.username;
@@ -41,16 +38,16 @@ export default {
     prfImg () {
       return this.$store.state.userInfo.prfImg;
     },
-    listname () {
-      return this.$store.state.listname;
+    selfList () {
+      return this.$store.state.selfList;
     }
   },
-  props: {
-    personalList: Array
-  },
-  data: function () {
-    return {
-      
+  methods: {
+    clickInbox () {
+      this.$store.commit("changeShowingList", 0);
+    },
+    clickSelfList (idx) {
+      this.$store.commit("changeShowingList", idx + 1)
     }
   }
 }

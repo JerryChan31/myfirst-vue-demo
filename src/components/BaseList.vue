@@ -22,12 +22,6 @@ import BaseItem from './BaseItem.vue'
 
 export default {
   name: 'BaseList',
-  props: {
-    twoList: {
-      todoList: Array,
-      completedList: Array
-    }
-  },
   data: function () {
     return {
       isCompletedShown: false,
@@ -37,14 +31,17 @@ export default {
   },
   computed: {
     showingList () {
-      return this.$store.state.inbox;
+      if (this.$store.state.showingListIndex === 0) {
+        return this.$store.state.inbox;
+      } else {
+        return this.$store.state.selfList[this.$store.state.showingListIndex - 1];
+      }
     }
   },
   components: {
     BaseItem
   },
   methods: {
-    
     itemDone: function (index) {
       this.$store.commit("itemDone", index);
     },
