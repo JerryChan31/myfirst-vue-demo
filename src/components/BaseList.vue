@@ -1,18 +1,23 @@
 <template>
   <div class="baselist">
-    <div class="add-item">
-      <v-icon name="plus"></v-icon>
-      <input type="text" placeholder="Add a todo" v-model="addText" @focus="toggleAddFocusStatus(true)" @blur="toggleAddFocusStatus(false)" @keyup.enter="addItem()" >
+    <div class="list-name">
+      {{ showingList.listName }}
     </div>
-    <div>
-      <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
-    </div>
-    <div>
-      <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
-      <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
-    </div>
-    <div v-show="isCompletedShown">
-      <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
+    <div class="list-body">
+      <div class="add-item">
+        <v-icon name="plus"></v-icon>
+        <input type="text" placeholder="Add a todo" v-model="addText" @focus="toggleAddFocusStatus(true)" @blur="toggleAddFocusStatus(false)" @keyup.enter="addItem()" >
+      </div>
+      <div>
+        <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
+      </div>
+      <div>
+        <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
+        <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
+      </div>
+      <div v-show="isCompletedShown">
+        <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +60,7 @@ export default {
       this.isAddOnFocus = isFocused;
     },
     addItem: function() {
-      if (this.addText.length !== 0 && this.isAddOnFocus == true) {
+      if (this.addText.length !== 0 && this.isAddOnFocus === true) {
         this.$store.commit("addItem", {
           itemId: this.$store.state.itemCount + 1,
           title: this.addText,
@@ -87,6 +92,8 @@ export default {
   @item-height: 60px;
   @text-size: 20px;
   @add-item-margin: 10px 0 30px 0;
+  @name-bar-height: 56px;
+  @name-bar-padding: 0 0 0 20px;
 
   label {
     display: inline-flex;
@@ -95,7 +102,7 @@ export default {
     color: white;
     margin: @togglebutton-margin;
     padding: @togglebutton-padding;
-    align-items: center;    
+    align-items: center;
     user-select: none;
     &.notshowing {
       background-color: @togglebutton-not-selected;
@@ -104,15 +111,16 @@ export default {
       }
     }
     &.showing {
-      background-color: @togglebutton-selected; 
+      background-color: @togglebutton-selected;
     }
   }
   .completed-item {
     color: @completeditem-color !important;
   }
   .baselist {
-    display: block;
     flex: 1 1 auto;
+  }
+  .list-body {
     margin: @base-list-margin;
   }
   .add-item {
@@ -138,5 +146,14 @@ export default {
       width: @icon-width;
       height: @icon-height;
     }
+  }
+  .list-name {
+    display: flex;
+    align-items: center;
+    background-color: @togglebutton-not-selected;
+    color: white;
+    font-size: 30px;
+    height: @name-bar-height;
+    padding: @name-bar-padding;
   }
 </style>

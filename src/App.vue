@@ -49,7 +49,8 @@ body {
   margin: 0;
   height: 100%;
 }
-html {  
+html {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
 }
 </style>

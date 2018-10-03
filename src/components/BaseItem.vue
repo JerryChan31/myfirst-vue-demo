@@ -24,7 +24,7 @@ export default {
   watch: {
     myValue: function (val, oldVal) {
       if (val !== oldVal) {
-        this.$emit('change', val);
+        this.$emit('change', val)
       }
     }
   }
@@ -49,7 +49,6 @@ input[type="checkbox"]{
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: @text-size;
   height: @item-height;
   background-color: white;

@@ -74,7 +74,6 @@ export default {
   div {
     width: @left-column-width;
   }
-  
   flex-shrink: 0;
   flex-direction: column;
   background-color: white;
