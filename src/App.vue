@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <left-column></left-column>
-    <base-list></base-list>
+    <login></login>
   </div>
 </template>
 
@@ -9,6 +8,7 @@
 import HelloWorld from './components/HelloWorld.vue'
 import BaseList from './components/BaseList.vue'
 import LeftColumn from './components/LeftColumn.vue'
+import Login from './components/Login.vue'
 /*
 function listItem( id, title, deadline, value, isStarred) {
   var res = new Object();
@@ -26,7 +26,8 @@ export default {
   components: {
     HelloWorld,
     BaseList,
-    LeftColumn
+    LeftColumn,
+    Login
   },
   data: function () {
     return {}
