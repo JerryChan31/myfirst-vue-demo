@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login></login>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,6 +9,8 @@ import HelloWorld from './components/HelloWorld.vue'
 import BaseList from './components/BaseList.vue'
 import LeftColumn from './components/LeftColumn.vue'
 import Login from './components/Login.vue'
+import router from './config/routes.js'
+
 /*
 function listItem( id, title, deadline, value, isStarred) {
   var res = new Object();
@@ -27,7 +29,8 @@ export default {
     HelloWorld,
     BaseList,
     LeftColumn,
-    Login
+    Login,
+    router
   },
   data: function () {
     return {}
