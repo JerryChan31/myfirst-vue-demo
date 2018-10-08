@@ -14,13 +14,19 @@ const routes = [
     },
     {
         path: "/list",
-        component: BaseList
+        components: {
+            default: BaseList,
+            sidebar: LeftColumn
+        }
+    },
+    {
+        path: "/",
+        redirect: "/login"
     }
 ]
 
 const router = new VueRouter({
-    routes,
-    mode: "history"
+    routes
 })
 
 export default router;
