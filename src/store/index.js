@@ -11,7 +11,7 @@ export default new Vuex.Store({
       username: 'JerryChan',
       prfImg: '../assets/logo.png'
     },
-    inbox: {
+    selfList: [{
       listName: 'Inbox',
       todoList: [{
         itemId: 1,
@@ -38,9 +38,8 @@ export default new Vuex.Store({
         deadline: '',
         value: true,
         isStarred: false
-      }]
-    },
-    selfList: [{
+      }]}
+      ,{
       listName: 'List1',
       todoList: [{
         itemId: 5,
@@ -100,61 +99,24 @@ export default new Vuex.Store({
   },
   mutations: {
     itemDone (state, idx) {
-      let temp = judgeIndex(this.state.showingListIndex)
-      if (temp.isInbox) {
-        // inbox situtation
-        let backup = this.state.inbox.todoList[idx]
-        backup.value = true
-        this.state.inbox.completedList.push(backup)
-        this.state.inbox.todoList.splice(idx, 1)
-      } else {
-        // selfList situtation
-        let backup = this.state.selfList[temp.actualIndex].todoList[idx]
-        backup.value = true
-        this.state.selfList[temp.actualIndex].completedList.push(backup)
-        this.state.selfList[temp.actualIndex].todoList.splice(idx, 1)
-      }
+      // selfList situtation
+      let backup = this.state.selfList[this.state.showingListIndex].todoList[idx]
+      backup.value = true
+      this.state.selfList[this.state.showingListIndex].completedList.push(backup)
+      this.state.selfList[this.state.showingListIndex].todoList.splice(idx, 1)
     },
     itemCancelDone (state, idx) {
-      let temp = judgeIndex(this.state.showingListIndex)
-      if (temp.isInbox) {
-        let backup = this.state.inbox.completedList[idx]
-        backup.value = false
-        this.state.inbox.todoList.push(backup)
-        this.state.inbox.completedList.splice(idx, 1)
-      } else {
-        let backup = this.state.selfList[temp.actualIndex].completedList[idx]
-        backup.value = false
-        this.state.selfList[temp.actualIndex].todoList.push(backup)
-        this.state.selfList[temp.actualIndex].completedList.splice(idx, 1)
-      }
+      let backup = this.state.selfList[this.state.showingListIndex].completedList[idx]
+      backup.value = false
+      this.state.selfList[this.state.showingListIndex].todoList.push(backup)
+      this.state.selfList[this.state.showingListIndex].completedList.splice(idx, 1)
     },
     addItem (state, newItem) {
-      let temp = judgeIndex(this.state.showingListIndex)
-      if (temp.isInbox) {
-        this.state.inbox.todoList.push(newItem)
-        this.state.itemCount++
-      } else {
-        this.state.selfList[temp.actualIndex].todoList.push(newItem)
-        this.state.itemCount++
-      }
+      this.state.selfList[this.state.showingListIndex].todoList.push(newItem)
+      this.state.itemCount++
     },
     changeShowingList (state, idx) {
       this.state.showingListIndex = idx
     }
   }
 })
-
-function judgeIndex (idx) {
-  if (idx === 0) {
-    return {
-      isInbox: true,
-      actualIndex: null
-    }
-  } else {
-    return {
-      isInbox: false,
-      actualIndex: idx - 1
-    }
-  }
-}

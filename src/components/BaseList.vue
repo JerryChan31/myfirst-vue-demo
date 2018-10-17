@@ -36,11 +36,7 @@ export default {
   },
   computed: {
     showingList () {
-      if (this.$store.state.showingListIndex === 0) {
-        return this.$store.state.inbox;
-      } else {
-        return this.$store.state.selfList[this.$store.state.showingListIndex - 1];
-      }
+      return this.$store.state.selfList[this.$store.state.showingListIndex];
     }
   },
   components: {
@@ -62,7 +58,7 @@ export default {
     addItem: function() {
       if (this.addText.length !== 0 && this.isAddOnFocus === true) {
         this.$store.commit("addItem", {
-          itemId: this.$store.state.itemCount + 1,
+          itemId: this.$store.state.itemCount,
           title: this.addText,
           deadline: '',
           value: false,

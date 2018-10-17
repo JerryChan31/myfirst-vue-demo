@@ -1,28 +1,11 @@
 <template>
   <div class="leftColumn">
-    <div class="search-bar">
-      <v-icon name="bars" />
-      <input type="text">
-      <v-icon name="search" />
-    </div>
-    <div class="profile-bar">
-      <div class="profile">
-        <img alt="profile_img" src="../assets/logo.png">
-        <label>{{ username }}</label>
-        <v-icon name="angle-down" />
-      </div>
-      <span>
-        <v-icon name="regular/bell" class="bell"/>
-        <v-icon name="regular/comment" class="comment"/>
-      </span>
-    </div>
-    <div class="inbox" @click="clickInbox">
-      <v-icon name="inbox" />
-      <label> Inbox </label>
-    </div>
+    <search-bar></search-bar>
+    <profile-bar :username="username"></profile-bar>
     <div class="personal-list">
       <div class="personal-list-item" v-for="(list, index) in selfList" :key="index" @click="clickSelfList(index)">
-        <v-icon name="list-ul" />
+        <v-icon v-if="index==0" name="inbox" />
+        <v-icon v-if="index!=0" name="list-ul" />
         <span>{{ list.listName }}</span>
       </div>
     </div>
@@ -30,7 +13,13 @@
 </template>
 
 <script>
+import SearchBar from './SearchBar.vue'
+import ProfileBar from './ProfileBar.vue'
 export default {
+  components: {
+    SearchBar,
+    ProfileBar
+  },
   computed: {
     username () {
       return this.$store.state.userInfo.username;
@@ -47,7 +36,7 @@ export default {
       this.$store.commit("changeShowingList", 0);
     },
     clickSelfList (idx) {
-      this.$store.commit("changeShowingList", idx + 1)
+      this.$store.commit("changeShowingList", idx)
     }
   }
 }
@@ -79,59 +68,9 @@ export default {
   background-color: white;
 }
 
-.search-bar {
-  display: flex;
-  background-color: @searchbar-background-color;
-  color: white;
-  .fa-icon {
-    width: @big-icon-width;
-    height: @big-icon-height;
-    padding: @big-icon-padding;
-    align-items: center;
-  }
-  input {
-    width: @input-box-width;
-    border: 0;
-    background-color: @searchbar-background-color;
-    color: inherit;
-    font-size: @input-box-fontsize;
-    padding-left: @input-box-leftspace;
-  }
-}
 
-.profile-bar {
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  height: @bar-height;
-  .profile {
-    display: inherit;
-    align-items: center;
-    img {
-      width: @profile-img-size;
-      height: @profile-img-size;
-      border: @profile-img-border;
-      border-radius: 50%;
-      margin: @profile-img-margin;
-    }
-    &:hover {
-      background-color: @hover-color;
-    }
-  }
-  span{
-    display: flex;
-  }
-  .fa-icon {
-    width: @big-icon-width;
-    height: @big-icon-height;
-    padding: @profile-icon-padding;
-    &:hover {
-      background-color: @hover-color;
-    }
-  }
-}
+
+
 
 .inbox {
   display: flex;
