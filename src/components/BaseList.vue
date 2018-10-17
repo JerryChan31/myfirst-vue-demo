@@ -31,12 +31,12 @@ export default {
     return {
       isCompletedShown: false,
       isAddOnFocus: false,
-      addText: "",
+      addText: ''
     }
   },
   computed: {
     showingList () {
-      return this.$store.state.selfList[this.$store.state.showingListIndex];
+      return this.$store.state.selfList[this.$store.state.showingListIndex]
     }
   },
   components: {
@@ -44,27 +44,27 @@ export default {
   },
   methods: {
     itemDone: function (index) {
-      this.$store.commit("itemDone", index);
+      this.$store.commit('itemDone', index)
     },
     itemCancelDone: function (index) {
-      this.$store.commit("itemCancelDone", index);
+      this.$store.commit('itemCancelDone', index)
     },
     toggleShowCompleted: function (status) {
-      this.isCompletedShown = status;
+      this.isCompletedShown = status
     },
     toggleAddFocusStatus: function (isFocused) {
-      this.isAddOnFocus = isFocused;
+      this.isAddOnFocus = isFocused
     },
-    addItem: function() {
+    addItem: function () {
       if (this.addText.length !== 0 && this.isAddOnFocus === true) {
-        this.$store.commit("addItem", {
-          itemId: this.$store.state.itemCount,
+        this.$store.commit('addItem', {
+          itemId: this.$store.state.itemCount + 1,
           title: this.addText,
           deadline: '',
           value: false,
           isStarred: false
-        });
-        this.addText = "";
+        })
+        this.addText = ''
       }
     }
   }

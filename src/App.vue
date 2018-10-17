@@ -11,7 +11,6 @@ import BaseList from './components/BaseList.vue'
 import LeftColumn from './components/LeftColumn.vue'
 import Login from './components/Login.vue'
 
-
 /*
 function listItem( id, title, deadline, value, isStarred){
   var res = new Object();
@@ -30,7 +29,7 @@ export default {
     HelloWorld,
     BaseList,
     LeftColumn,
-    Login,
+    Login
   },
   data: function () {
     return {}

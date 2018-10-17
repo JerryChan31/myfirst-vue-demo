@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       alert: false,
-      alertMessage: "Wrong username or password."
+      alertMessage: 'Wrong username or password.'
     }
   }
 }

@@ -15,11 +15,10 @@
 <script>
 export default {
   props: {
-      username: String
+    username: String
   }
 }
 </script>
-
 
 <style lang="less" scoped>
 @hover-color: #e5f3ff;

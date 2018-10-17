@@ -8,25 +8,25 @@ import LoginPage from '../components/Login.vue'
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: "/login",
-        component: LoginPage
-    },
-    {
-        path: "/list",
-        components: {
-            default: BaseList,
-            sidebar: LeftColumn
-        }
-    },
-    {
-        path: "/",
-        redirect: "/login"
+  {
+    path: '/login',
+    component: LoginPage
+  },
+  {
+    path: '/list',
+    components: {
+      default: BaseList,
+      sidebar: LeftColumn
     }
+  },
+  {
+    path: '/',
+    redirect: '/list'
+  }
 ]
 
 const router = new VueRouter({
-    routes
+  routes
 })
 
-export default router;
+export default router

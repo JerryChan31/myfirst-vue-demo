@@ -3,9 +3,9 @@
     <search-bar></search-bar>
     <profile-bar :username="username"></profile-bar>
     <div class="personal-list">
-      <div class="personal-list-item" v-for="(list, index) in selfList" :key="index" @click="clickSelfList(index)">
-        <v-icon v-if="index==0" name="inbox" />
-        <v-icon v-if="index!=0" name="list-ul" />
+      <div class="personal-list-item" :class="{isSelected: index==showingListIndex}" v-for="(list, index) in list" :key="index" @click="clickList(index)">
+        <v-icon v-if="index==0" name="inbox" class="inbox"/>
+        <v-icon v-if="index!=0" name="list-ul" class="selfList"/>
         <span>{{ list.listName }}</span>
       </div>
     </div>
@@ -22,21 +22,21 @@ export default {
   },
   computed: {
     username () {
-      return this.$store.state.userInfo.username;
+      return this.$store.state.userInfo.username
     },
     prfImg () {
-      return this.$store.state.userInfo.prfImg;
+      return this.$store.state.userInfo.prfImg
     },
-    selfList () {
-      return this.$store.state.selfList;
+    list () {
+      return this.$store.state.selfList
+    },
+    showingListIndex () {
+      return this.$store.state.showingListIndex
     }
   },
   methods: {
-    clickInbox () {
-      this.$store.commit("changeShowingList", 0);
-    },
-    clickSelfList (idx) {
-      this.$store.commit("changeShowingList", idx)
+    clickList (idx) {
+      this.$store.commit('changeShowingList', idx)
     }
   }
 }
@@ -68,11 +68,7 @@ export default {
   background-color: white;
 }
 
-
-
-
-
-.inbox {
+.personal-list-item {
   display: flex;
   background-color: white;
   height: @bar-height;
@@ -81,18 +77,16 @@ export default {
   .fa-icon {
     width: @big-icon-width;
     height: @big-icon-height;
-    color: #2b88d9;
     padding: @big-icon-padding;
+    &.inbox {
+      color: #2b88d9;
+    }
   }
   &:hover {
     background-color: @hover-color;
   }
-}
-
-.personal-list-item {
-  .inbox;
-  .fa-icon {
-    color: black;
+  &.isSelected {
+    background-color: #cce8ff;
   }
 }
 

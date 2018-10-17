@@ -9,10 +9,17 @@ Vue.config.productionTip = false
 
 Vue.component('v-icon', VueAwesome)
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
+
+store.subscribe((mutations, state)=>{
+  localStorage.setItem("state", JSON.stringify(state));
+})
 
 new Vue({
   store,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate() {
+		this.$store.commit('initStateFromLocalStorage');
+	}
 }).$mount('#app')
