@@ -18,30 +18,42 @@ export default new Vuex.Store({
     initStateFromLocalStorage (state) {
       let temp = localStorage.getItem("state");
       if (temp) {
-        this.replaceState(Object.assign(this.state, JSON.parse(localStorage.getItem("state"))));
+        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem("state"))));
       } else {
-        this.replaceState(Object.assign(this.state, initData));
+        this.replaceState(Object.assign(state, initData));
       }
     },
     itemDone (state, idx) {
       // selfList situtation
-      let backup = this.state.selfList[this.state.showingListIndex].todoList[idx]
+      let backup = state.selfList[state.showingListIndex].todoList[idx]
       backup.value = true
-      this.state.selfList[this.state.showingListIndex].completedList.push(backup)
-      this.state.selfList[this.state.showingListIndex].todoList.splice(idx, 1)
+      state.selfList[state.showingListIndex].completedList.push(backup)
+      state.selfList[state.showingListIndex].todoList.splice(idx, 1)
     },
     itemCancelDone (state, idx) {
-      let backup = this.state.selfList[this.state.showingListIndex].completedList[idx]
+      let backup = state.selfList[state.showingListIndex].completedList[idx]
       backup.value = false
-      this.state.selfList[this.state.showingListIndex].todoList.push(backup)
-      this.state.selfList[this.state.showingListIndex].completedList.splice(idx, 1)
+      state.selfList[state.showingListIndex].todoList.push(backup)
+      state.selfList[state.showingListIndex].completedList.splice(idx, 1)
     },
     addItem (state, newItem) {
-      this.state.selfList[this.state.showingListIndex].todoList.push(newItem)
-      this.state.itemCount++
+      state.selfList[state.showingListIndex].todoList.push(newItem)
+      state.itemCount++
     },
     changeShowingList (state, idx) {
-      this.state.showingListIndex = idx
+      state.showingListIndex = idx
+    },
+    toggleItemStar (state, id) {
+      let temp = this.getters.getShowingTodoItemById(id);
+      temp.isStarred = !temp.isStarred
+    }
+  },
+  getters: {
+    getShowingList: (state) => {
+      return state.selfList[state.showingListIndex]
+    },
+    getShowingTodoItemById: (state, getters) => (id) => {
+      return getters.getShowingList.todoList.find(todo => todo.itemId === id);
     }
   }
 })

@@ -2,6 +2,10 @@
   <div class="todo-item" v-bind:value="myValue">
     <input type="checkbox" v-model="myValue" >
     <label> {{title}} </label>
+    <div class="starIcon" @click="toggleStarred">
+      <v-icon v-if="isStarred && !value" name="star"></v-icon>
+      <v-icon v-if="!isStarred && !value" name="regular/star"></v-icon>  
+    </div>
   </div>
 </template>
 
@@ -14,7 +18,8 @@ export default {
     title: String,
     deadline: String, // Date? type check problem
     value: Boolean,
-    isStarred: Boolean
+    isStarred: Boolean,
+    index: Number
   },
   data: function () {
     return {
@@ -26,6 +31,11 @@ export default {
       if (val !== oldVal) {
         this.$emit('change', val)
       }
+    }
+  },
+  methods: {
+    toggleStarred: function () {
+      this.$store.commit("toggleItemStar", this.itemId);
     }
   }
 }
@@ -56,5 +66,16 @@ input[type="checkbox"]{
   &:hover {
     background-color: #E5F3FF;
   }
+  label {
+    flex: 1 1 auto;
+  }
+  .fa-icon {
+    color: orange;
+    width: 23px;
+    height: 23px;
+    padding: 17px 17px 17px 17px;
+  }
 }
+
+
 </style>

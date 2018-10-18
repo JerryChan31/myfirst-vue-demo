@@ -4,10 +4,7 @@
       {{ showingList.listName }}
     </div>
     <div class="list-body">
-      <div class="add-item">
-        <v-icon name="plus"></v-icon>
-        <input type="text" placeholder="Add a todo" v-model="addText" @focus="toggleAddFocusStatus(true)" @blur="toggleAddFocusStatus(false)" @keyup.enter="addItem()" >
-      </div>
+      <add-bar></add-bar>
       <div>
         <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
       </div>
@@ -24,14 +21,13 @@
 
 <script>
 import BaseItem from './BaseItem.vue'
+import AddBar from './AddBar.vue'
 
 export default {
   name: 'BaseList',
   data: function () {
     return {
       isCompletedShown: false,
-      isAddOnFocus: false,
-      addText: ''
     }
   },
   computed: {
@@ -40,7 +36,8 @@ export default {
     }
   },
   components: {
-    BaseItem
+    BaseItem,
+    AddBar
   },
   methods: {
     itemDone: function (index) {
@@ -51,21 +48,6 @@ export default {
     },
     toggleShowCompleted: function (status) {
       this.isCompletedShown = status
-    },
-    toggleAddFocusStatus: function (isFocused) {
-      this.isAddOnFocus = isFocused
-    },
-    addItem: function () {
-      if (this.addText.length !== 0 && this.isAddOnFocus === true) {
-        this.$store.commit('addItem', {
-          itemId: this.$store.state.itemCount + 1,
-          title: this.addText,
-          deadline: '',
-          value: false,
-          isStarred: false
-        })
-        this.addText = ''
-      }
     }
   }
 }
@@ -73,23 +55,17 @@ export default {
 
 <style lang="less" scoped>
 
-  @togglebutton-font-size: 15px;
-  @togglebutton-height: 38px;
-  @togglebutton-padding: 0 15px 0 15px;
-  @togglebutton-margin: 30px 0 5px 0;
-  @togglebutton-not-selected: #71AF8C;
-  @togglebutton-selected: #5F8D73;
-  @completeditem-color: #a9a9a9;
-  @base-list-margin:20px 20px 20px 20px;
-  @add-item-background-color: #7eb694;
-  @icon-margin: 20px 20px 20px 20px;
-  @icon-width:20px;
-  @icon-height: 20px;
-  @item-height: 60px;
-  @text-size: 20px;
-  @add-item-margin: 10px 0 30px 0;
-  @name-bar-height: 56px;
-  @name-bar-padding: 0 0 0 20px;
+@togglebutton-font-size: 15px;
+@togglebutton-height: 38px;
+@togglebutton-padding: 0 15px 0 15px;
+@togglebutton-margin: 30px 0 5px 0;
+@togglebutton-not-selected: #71AF8C;
+@togglebutton-selected: #5F8D73;
+@completeditem-color: #a9a9a9;
+@base-list-margin:20px 20px 20px 20px;
+@text-size: 20px;
+@name-bar-height: 56px;
+@name-bar-padding: 0 0 0 20px;
 
   label {
     display: inline-flex;
@@ -119,30 +95,7 @@ export default {
   .list-body {
     margin: @base-list-margin;
   }
-  .add-item {
-    display: flex;
-    background-color: @add-item-background-color;
-    align-items: center;
-    height: @item-height;
-    margin: @add-item-margin;
-    input {
-      flex:1;
-      background-color: inherit;
-      border: 0;
-      font-size: 20px;
-      outline: none;
-      color: white;
-    }
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: white;
-    }
-    .fa-icon {
-      color: white;
-      margin: @icon-margin;
-      width: @icon-width;
-      height: @icon-height;
-    }
-  }
+  
   .list-name {
     display: flex;
     align-items: center;

@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import BaseList from './components/BaseList.vue'
 import LeftColumn from './components/LeftColumn.vue'
 import Login from './components/Login.vue'
@@ -26,7 +25,6 @@ function listItem( id, title, deadline, value, isStarred){
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     BaseList,
     LeftColumn,
     Login
