@@ -2,12 +2,16 @@
   <div class="leftColumn">
     <search-bar></search-bar>
     <profile-bar :username="username"></profile-bar>
-    <div class="personal-list">
-      <div class="personal-list-item" :class="{isSelected: index==showingListIndex}" v-for="(list, index) in list" :key="index" @click="clickList(index)">
+    <div class="list-space">
+      <div class="list" :class="{isSelected: index==showingListIndex}" v-for="(list, index) in list" :key="index" @click="clickList(index)">
         <v-icon v-if="index==0" name="inbox" class="inbox"/>
         <v-icon v-if="index!=0" name="list-ul" class="selfList"/>
         <span>{{ list.listName }}</span>
       </div>
+    </div>
+    <div class="create-list" @click="createList">
+      <v-icon name="plus"></v-icon>
+      <span>Creat list</span>
     </div>
   </div>
 </template>
@@ -37,6 +41,9 @@ export default {
   methods: {
     clickList (idx) {
       this.$store.commit('changeShowingList', idx)
+    },
+    createList () {
+      this.$store.commit('createList');
     }
   }
 }
@@ -44,50 +51,56 @@ export default {
 
 <style lang="less" scoped>
 @left-column-width: 350px;
-@searchbar-background-color: #609477;
 @big-icon-width: 22px;
 @big-icon-height: 24px;
 @big-icon-padding: 16px 17px 16px 17px;
-@input-box-width: 240px;
-@input-box-leftspace: 5px;
-@input-box-fontsize: 18px;
 @bar-height: 60px;
-@profile-img-size: 40px;
-@profile-img-border: 1px none gray;
-@profile-img-margin: 10px;
-@profile-icon-padding: (@bar-height - @big-icon-height)/2px 17px (@bar-height - @big-icon-height)/2px 17px;
 @hover-color: #e5f3ff;
+@selected-color: #cce8ff;
+@inbox-color: #2b88d9;
+@theme-color: #71AF8C;
 
 .leftColumn {
+  display: flex;
+  flex-direction: column;
   flex: 0 0 auto;
+  font-size: 20px;
+  user-select: none;
   div {
     width: @left-column-width;
   }
-  flex-shrink: 0;
-  flex-direction: column;
   background-color: white;
+  .list-space {
+    flex: 1 1;
+  }
 }
 
-.personal-list-item {
+.fa-icon {
+  width: @big-icon-width;
+  height: @big-icon-height;
+  padding: @big-icon-padding;
+  &.inbox {
+    color: @inbox-color;
+  }
+}
+
+.list {
   display: flex;
   background-color: white;
   height: @bar-height;
   align-items: center;
-  font-size: 20px;
-  .fa-icon {
-    width: @big-icon-width;
-    height: @big-icon-height;
-    padding: @big-icon-padding;
-    &.inbox {
-      color: #2b88d9;
-    }
-  }
   &:hover {
     background-color: @hover-color;
   }
   &.isSelected {
-    background-color: #cce8ff;
+    background-color: @selected-color;
   }
+}
+
+.create-list {
+  display: flex;
+  align-items: center;
+  color: @inbox-color;
 }
 
 </style>

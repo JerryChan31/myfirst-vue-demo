@@ -54,6 +54,10 @@ export default {
 @item-height: 60px;
 @border-width: 1px;
 @text-size: 20px;
+@space-between-item: 1px;
+@star-size: 23px;
+@star-padding: 17px;
+@deadline-font-size: 15px;
 
 input[type="checkbox"]{
   width: @checkbox-edge;
@@ -63,13 +67,11 @@ input[type="checkbox"]{
 
 .todo-item {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
   align-items: center;
   font-size: @text-size;
   height: @item-height;
   background-color: white;
-  margin-top: 1px;
+  margin-top: @space-between-item;
   &:hover {
     background-color: #E5F3FF;
   }
@@ -78,13 +80,12 @@ input[type="checkbox"]{
   }
   .fa-icon {
     color: orange;
-    width: 23px;
-    height: 23px;
-    padding: 17px 17px 17px 17px;
+    width: @star-size;
+    height: @star-size;
+    padding: @star-padding;
   }
   span {
-    font-size: 15px;
-    margin-right: 10px;
+    font-size: @deadline-font-size;
     &.deadline {
       color: grey;
     }

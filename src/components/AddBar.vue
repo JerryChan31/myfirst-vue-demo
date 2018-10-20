@@ -34,32 +34,30 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@add-item-background-color: #7eb694;
+@background-color: #7eb694;
 @icon-margin: 20px 20px 20px 20px;
 @icon-width:20px;
 @icon-height: 20px;
 @item-height: 60px;
 @add-item-margin: 10px 0 30px 0;
 
-.add-item {
+div.add-item {
   display: flex;
-  background-color: @add-item-background-color;
+  background-color: @background-color;
   align-items: center;
   height: @item-height;
   margin: @add-item-margin;
-  input {
-    flex:1;
+  color: white;
+  input[type="text"] {
     background-color: inherit;
     border: 0;
     font-size: 20px;
     outline: none;
-    color: white;
   }
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: white;
   }
   .fa-icon {
-    color: white;
     margin: @icon-margin;
     width: @icon-width;
     height: @icon-height;

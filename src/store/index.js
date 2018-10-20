@@ -46,6 +46,13 @@ export default new Vuex.Store({
     toggleItemStar (state, id) {
       let temp = this.getters.getShowingTodoItemById(id)
       temp.isStarred = !temp.isStarred
+    },
+    createList (state) {
+      state.selfList.push({
+        listName: "New list",
+        todoList: [],
+        completedList: []
+      })
     }
   },
   getters: {

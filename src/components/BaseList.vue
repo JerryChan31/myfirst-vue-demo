@@ -72,42 +72,43 @@ export default {
 @name-bar-height: 56px;
 @name-bar-padding: 0 0 0 20px;
 
-  label {
-    display: inline-flex;
-    font-size: @togglebutton-font-size;
-    height: @togglebutton-height;
-    color: white;
-    margin: @togglebutton-margin;
-    padding: @togglebutton-padding;
-    align-items: center;
-    user-select: none;
-    &.notshowing {
-      background-color: @togglebutton-not-selected;
-      &:hover {
-        background-color: @togglebutton-selected;
-      }
-    }
-    &.showing {
+label {
+  display: inline-flex;
+  font-size: @togglebutton-font-size;
+  height: @togglebutton-height;
+  color: white;
+  margin: @togglebutton-margin;
+  padding: @togglebutton-padding;
+  align-items: center;
+  user-select: none;
+  &.notshowing {
+    background-color: @togglebutton-not-selected;
+    &:hover {
       background-color: @togglebutton-selected;
     }
   }
-  .completed-item {
-    color: @completeditem-color !important;
+  &.showing {
+    background-color: @togglebutton-selected;
   }
-  .baselist {
-    flex: 1 1 auto;
-  }
-  .list-body {
-    margin: @base-list-margin;
-  }
+}
+.completed-item {
+  color: @completeditem-color !important;
+}
+.baselist {
+  flex: 1 1 auto;
+}
+.list-body {
+  margin: @base-list-margin;
+}
 
-  .list-name {
-    display: flex;
-    align-items: center;
-    background-color: @togglebutton-not-selected;
-    color: white;
-    font-size: 30px;
-    height: @name-bar-height;
-    padding: @name-bar-padding;
-  }
+.list-name {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  background-color: @togglebutton-not-selected;
+  color: white;
+  font-size: 30px;
+  height: @name-bar-height;
+  padding: @name-bar-padding;
+}
 </style>
