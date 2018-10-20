@@ -11,15 +11,15 @@ Vue.component('v-icon', VueAwesome)
 
 Vue.use(VueRouter)
 
-store.subscribe((mutations, state)=>{
-  localStorage.setItem("state", JSON.stringify(state));
+store.subscribe((mutations, state) => {
+  localStorage.setItem('state', JSON.stringify(state))
 })
 
 new Vue({
   store,
   router,
   render: h => h(App),
-  beforeCreate() {
-		this.$store.commit('initStateFromLocalStorage');
-	}
+  beforeCreate () {
+    this.$store.commit('initStateFromLocalStorage')
+  }
 }).$mount('#app')

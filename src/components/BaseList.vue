@@ -6,7 +6,7 @@
     <div class="list-body">
       <add-bar></add-bar>
       <div>
-        <base-item v-for="(todo, index) in showingList.todoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
+        <base-item v-for="(todo, index) in showingTodoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
       </div>
       <div>
         <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
@@ -27,12 +27,17 @@ export default {
   name: 'BaseList',
   data: function () {
     return {
-      isCompletedShown: false,
+      isCompletedShown: false
     }
   },
   computed: {
     showingList () {
-      return this.$store.state.selfList[this.$store.state.showingListIndex]
+      return this.$store.getters.getShowingList
+    },
+    showingTodoList () {
+      return this.showingList.todoList.slice().sort((a, b) => {
+        return (a.isStarred === false && b.isStarred === true)
+      })
     }
   },
   components: {
@@ -95,7 +100,7 @@ export default {
   .list-body {
     margin: @base-list-margin;
   }
-  
+
   .list-name {
     display: flex;
     align-items: center;

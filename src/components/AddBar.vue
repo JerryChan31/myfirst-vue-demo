@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  data: ()=>{
+  data: () => {
     return {
       isAddOnFocus: false,
       addText: ''

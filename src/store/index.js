@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import initData from "../test.json"
+import initData from '../test.json'
 
 Vue.use(Vuex)
 
@@ -16,35 +16,35 @@ export default new Vuex.Store({
   },
   mutations: {
     initStateFromLocalStorage (state) {
-      let temp = localStorage.getItem("state");
+      let temp = localStorage.getItem('state')
       if (temp) {
-        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem("state"))));
+        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem('state'))))
       } else {
-        this.replaceState(Object.assign(state, initData));
+        this.replaceState(Object.assign(state, initData))
       }
     },
     itemDone (state, idx) {
       // selfList situtation
-      let backup = state.selfList[state.showingListIndex].todoList[idx]
+      let backup = this.getters.getShowingList.todoList[idx]
       backup.value = true
-      state.selfList[state.showingListIndex].completedList.push(backup)
-      state.selfList[state.showingListIndex].todoList.splice(idx, 1)
+      this.getters.getShowingList.completedList.push(backup)
+      this.getters.getShowingList.todoList.splice(idx, 1)
     },
     itemCancelDone (state, idx) {
-      let backup = state.selfList[state.showingListIndex].completedList[idx]
+      let backup = this.getters.getShowingList.completedList[idx]
       backup.value = false
-      state.selfList[state.showingListIndex].todoList.push(backup)
-      state.selfList[state.showingListIndex].completedList.splice(idx, 1)
+      this.getters.getShowingList.todoList.push(backup)
+      this.getters.getShowingList.completedList.splice(idx, 1)
     },
     addItem (state, newItem) {
-      state.selfList[state.showingListIndex].todoList.push(newItem)
+      this.getters.getShowingList.todoList.push(newItem)
       state.itemCount++
     },
     changeShowingList (state, idx) {
       state.showingListIndex = idx
     },
     toggleItemStar (state, id) {
-      let temp = this.getters.getShowingTodoItemById(id);
+      let temp = this.getters.getShowingTodoItemById(id)
       temp.isStarred = !temp.isStarred
     }
   },
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       return state.selfList[state.showingListIndex]
     },
     getShowingTodoItemById: (state, getters) => (id) => {
-      return getters.getShowingList.todoList.find(todo => todo.itemId === id);
+      return getters.getShowingList.todoList.find(todo => todo.itemId === id)
     }
   }
 })

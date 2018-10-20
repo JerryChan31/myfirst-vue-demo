@@ -11,20 +11,20 @@
         "todoList": [{
           "itemId": 1,
           "title": "todo1",
-          "deadline": "",
+          "deadline": "2018/10/19",
           "value": false,
           "isStarred": false
         }, {
           "itemId": 2,
           "title": "todo2",
-          "deadline": "",
+          "deadline": "2018/10/20",
           "value": false,
           "isStarred": false
         }],
         "completedList": [{
           "itemId": 3,
           "title": "todo3",
-          "deadline": "",
+          "deadline": "2018/10/21",
           "value": true,
           "isStarred": false
         }, {

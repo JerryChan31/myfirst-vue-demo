@@ -2,9 +2,10 @@
   <div class="todo-item" v-bind:value="myValue">
     <input type="checkbox" v-model="myValue" >
     <label> {{title}} </label>
+    <span v-bind:class="{expired: isExpired, deadline: !isExpired}" v-if="!myValue">{{deadline}}</span>
     <div class="starIcon" @click="toggleStarred">
       <v-icon v-if="isStarred && !value" name="star"></v-icon>
-      <v-icon v-if="!isStarred && !value" name="regular/star"></v-icon>  
+      <v-icon v-if="!isStarred && !value" name="regular/star"></v-icon>
     </div>
   </div>
 </template>
@@ -16,10 +17,9 @@ export default {
   props: {
     itemId: Number,
     title: String,
-    deadline: String, // Date? type check problem
+    deadline: String,
     value: Boolean,
-    isStarred: Boolean,
-    index: Number
+    isStarred: Boolean
   },
   data: function () {
     return {
@@ -35,7 +35,14 @@ export default {
   },
   methods: {
     toggleStarred: function () {
-      this.$store.commit("toggleItemStar", this.itemId);
+      this.$store.commit('toggleItemStar', this.itemId)
+    }
+  },
+  computed: {
+    isExpired: function() {
+      let now = Date.now();
+      let temp = Date.parse(this.deadline);
+      return now - temp > 0;
     }
   }
 }
@@ -75,7 +82,16 @@ input[type="checkbox"]{
     height: 23px;
     padding: 17px 17px 17px 17px;
   }
+  span {
+    font-size: 15px;
+    margin-right: 10px;
+    &.deadline {
+      color: grey;
+    }
+    &.expired {
+      color: red;
+    }
+  }
 }
-
 
 </style>
