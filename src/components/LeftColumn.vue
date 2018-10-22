@@ -43,7 +43,7 @@ export default {
       this.$store.commit('changeShowingList', idx)
     },
     createList () {
-      this.$store.commit('createList');
+      this.$store.commit('createList')
     }
   }
 }
@@ -58,7 +58,7 @@ export default {
 @hover-color: #e5f3ff;
 @selected-color: #cce8ff;
 @inbox-color: #2b88d9;
-@theme-color: #71AF8C;
+
 
 .leftColumn {
   display: flex;

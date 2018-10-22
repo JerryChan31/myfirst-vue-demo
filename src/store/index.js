@@ -49,10 +49,15 @@ export default new Vuex.Store({
     },
     createList (state) {
       state.selfList.push({
-        listName: "New list",
+        listName: 'New list',
         todoList: [],
         completedList: []
       })
+    },
+    editItem (state, payload) {
+      let temp = this.getters.getShowingItemById(payload.id);
+      temp.deadline = payload.deadline;
+      temp.title = payload.title;
     }
   },
   getters: {
@@ -61,6 +66,14 @@ export default new Vuex.Store({
     },
     getShowingTodoItemById: (state, getters) => (id) => {
       return getters.getShowingList.todoList.find(todo => todo.itemId === id)
+    },
+    getShowingItemById: (state, getters) => (id) => {
+      const todo = getters.getShowingList.todoList.find(todo => todo.itemId === id);
+      if (todo === undefined) {
+        return getters.getShowingList.completedList.find(todo => todo.itemId === id)
+      } else {
+        return todo;
+      }
     }
   }
 })

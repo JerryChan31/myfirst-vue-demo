@@ -27,7 +27,8 @@ export default {
   name: 'BaseList',
   data: function () {
     return {
-      isCompletedShown: false
+      isCompletedShown: false,
+      isPoped: false
     }
   },
   computed: {
