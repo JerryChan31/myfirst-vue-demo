@@ -1,3 +1,4 @@
+<!-- A form to modify deadline and title of a todo item. -->
 <template>
   <div class="form">
     <div>
@@ -32,6 +33,7 @@ export default {
       this.$store.commit("editItem", {title: this.myTitle, deadline: temp,id: this.id});
       this.$emit("close");
     },
+    // convert date info from string.
     getDateObj() {
       return new Date(this.deadline);
     },
@@ -41,7 +43,7 @@ export default {
     },
     getMonth() {
       const month = this.getDateObj().getMonth();
-      return Number.isNaN(month) ? "" : month + 1;
+      return Number.isNaN(month) ? "" : month + 1; // month starts from 0
     },
     getDate() {
       const date = this.getDateObj().getDate();

@@ -1,3 +1,4 @@
+<!-- A pop out frame with darken background, have slot for content to show. -->
 <template v-on:close="closeWindow">
   <div class="background">
     <div class="window">

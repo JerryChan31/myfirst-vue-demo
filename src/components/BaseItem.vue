@@ -1,14 +1,15 @@
+<!-- Single todo item component -->
 <template>
   <div class="todo-item" v-bind:value="myValue">
     <input type="checkbox" v-model="myValue">
-    <label @click="editWindow"> {{title}} </label>
+    <label @click="editWindow(true)"> {{title}} </label>
     <span v-bind:class="{expired: isExpired, deadline: !isExpired}" v-if="!myValue">{{deadline}}</span>
     <div class="starIcon" @click="toggleStarred">
       <v-icon v-if="isStarred && !value" name="star"></v-icon>
       <v-icon v-if="!isStarred && !value" name="regular/star"></v-icon>
     </div>
-    <pop-frame v-if="isPoped" @close="closeWindow">
-      <pop-edit-item @close="closeWindow" v-bind="{title: title, deadline: deadline, id: itemId}"></pop-edit-item>
+    <pop-frame v-if="isPoped" @close="editWindow(false)">
+      <pop-edit-item @close="editWindow(false)" v-bind="{title: title, deadline: deadline, id: itemId}"></pop-edit-item>
     </pop-frame>
   </div>
 </template>
@@ -19,6 +20,7 @@ import PopEditItem from './PopEditItem.vue'
 export default {
   name: 'BaseItem',
   props: {
+    // info of an item
     itemId: Number,
     title: String,
     deadline: String,
@@ -27,11 +29,15 @@ export default {
   },
   data: function () {
     return {
+      // myValue: local copy of value
+      // isPoped: whether the edit window poped.
       myValue: this.value,
       isPoped: false
     }
   },
   watch: {
+    // emit to BaseList
+    // commit mutation in BaseList
     myValue: function (val, oldVal) {
       if (val !== oldVal) {
         this.$emit('change', val)
@@ -42,14 +48,12 @@ export default {
     toggleStarred: function (event) {
       this.$store.commit('toggleItemStar', this.itemId)
     },
-    closeWindow () {
-      this.isPoped = false;
-    },
-    editWindow () {
-      this.isPoped = true;
+    editWindow (newVal) {
+      this.isPoped = newVal;
     }
   },
   computed: {
+    // use for control the style - expired is red.
     isExpired: function () {
       let now = Date.now()
       let temp = Date.parse(this.deadline)

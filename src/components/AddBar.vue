@@ -1,3 +1,5 @@
+<!-- Add item to a list. -->
+<!-- Press enter after finished input to add -->
 <template>
   <div class="add-item">
     <v-icon name="plus"></v-icon>
@@ -14,9 +16,12 @@ export default {
     }
   },
   methods: {
+    // Item can only be added when input is focused.
+    // record the focus state in data 'isAddOnFocus'.
     toggleAddFocusStatus: function (isFocused) {
       this.isAddOnFocus = isFocused
     },
+    // Add an default item (without deadline and star).
     addItem: function () {
       if (this.addText.length !== 0 && this.isAddOnFocus === true) {
         this.$store.commit('addItem', {
@@ -26,7 +31,7 @@ export default {
           value: false,
           isStarred: false
         })
-        this.addText = ''
+        this.addText = '' // clear the input box.
       }
     }
   }
@@ -53,6 +58,7 @@ div.add-item {
     border: 0;
     font-size: 20px;
     outline: none;
+    flex: 1 1;
   }
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: white;

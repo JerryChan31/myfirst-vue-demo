@@ -1,3 +1,4 @@
+<!-- To be extended, now it's not able to search. -->
 <template>
   <div class="search-bar">
     <v-icon name="bars" />

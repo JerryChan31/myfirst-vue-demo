@@ -1,3 +1,4 @@
+<!-- a List contain todo items and completed items. -->
 <template>
   <div class="baselist">
     <div class="list-name">
@@ -27,14 +28,16 @@ export default {
   name: 'BaseList',
   data: function () {
     return {
-      isCompletedShown: false,
-      isPoped: false
+      // isCompletedShown: Whether show the completed list.
+      isCompletedShown: false
     }
   },
   computed: {
+    // get showing list for vuex.
     showingList () {
       return this.$store.getters.getShowingList
     },
+    // sort by whether the items are starred.
     showingTodoList () {
       return this.showingList.todoList.slice().sort((a, b) => {
         return (a.isStarred === false && b.isStarred === true)

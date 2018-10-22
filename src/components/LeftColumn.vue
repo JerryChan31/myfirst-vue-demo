@@ -1,3 +1,4 @@
+<!-- A column contain profile information, all the list, and search module-->
 <template>
   <div class="leftColumn">
     <search-bar></search-bar>
@@ -25,6 +26,7 @@ export default {
     ProfileBar
   },
   computed: {
+    // fetch info from vuex.
     username () {
       return this.$store.state.userInfo.username
     },
@@ -39,9 +41,11 @@ export default {
     }
   },
   methods: {
+    // change showing list by clicking the list name
     clickList (idx) {
       this.$store.commit('changeShowingList', idx)
     },
+    // create a new empty list.
     createList () {
       this.$store.commit('createList')
     }

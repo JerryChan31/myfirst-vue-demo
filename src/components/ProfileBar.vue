@@ -1,3 +1,4 @@
+<!-- To be extended. Now it can just only show the username and profile image.-->
 <template>
   <div class="profile-bar">
     <div class="profile">
