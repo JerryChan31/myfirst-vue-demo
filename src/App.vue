@@ -6,9 +6,7 @@
 </template>
 
 <script>
-import BaseList from './components/BaseList.vue'
-import LeftColumn from './components/LeftColumn.vue'
-import Login from './components/Login.vue'
+
 
 /*
 function listItem( id, title, deadline, value, isStarred){
@@ -25,9 +23,7 @@ function listItem( id, title, deadline, value, isStarred){
 export default {
   name: 'app',
   components: {
-    BaseList,
-    LeftColumn,
-    Login
+
   },
   data: function () {
     return {}

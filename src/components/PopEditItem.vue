@@ -6,16 +6,22 @@
       <span> Title</span>
     </div><div>
       <input type="text" v-model="myTitle">
-    </div><div>
+    </div>
+    <div>
       <v-icon name="edit"></v-icon>
       <span> Deadline (YYYY/MM/DD)</span>
-    </div><div>
+    </div>
+    <date-picker v-model="myDeadline"></date-picker>
+    <!--
+    <div>
       <input type="text" name="year" maxlength="4" v-model="year">
       <span> / </span>
       <input type="text" name="month" maxlength="2" v-model="month">
       <span> / </span>
       <input type="text" name="day" maxlength="2" v-model="date">
-    </div><div class="button-area">
+    </div>
+    -->
+    <div class="button-area">
       <button class="confirm" @click="commitEdit">确认</button>
       <button class="cancel" @click="closeWindow">取消</button>
     </div>
@@ -23,32 +29,19 @@
 </template>
 
 <script>
+import datePicker from 'vue-date'
 export default {
   methods: {
     closeWindow: function(e) {
       this.$emit("close");
     },
     commitEdit: function() {
-      let temp = this.year + "/" + this.month + "/" + this.date;
-      this.$store.commit("editItem", {title: this.myTitle, deadline: temp,id: this.id});
+      this.$store.commit("editItem", {title: this.myTitle, deadline: this.myDeadline,id: this.id});
       this.$emit("close");
-    },
-    // convert date info from string.
-    getDateObj() {
-      return new Date(this.deadline);
-    },
-    getYear() {
-      const year = this.getDateObj().getFullYear();
-      return Number.isNaN(year) ? "" : year;
-    },
-    getMonth() {
-      const month = this.getDateObj().getMonth();
-      return Number.isNaN(month) ? "" : month + 1; // month starts from 0
-    },
-    getDate() {
-      const date = this.getDateObj().getDate();
-      return Number.isNaN(date) ? "" : date;
     }
+  },
+  components: {
+    datePicker
   },
   props: {
     title: String,
@@ -58,9 +51,7 @@ export default {
   data: function () {
     return {
       myTitle: this.title,
-      year: this.getYear(),
-      month: this.getMonth(),
-      date: this.getDate()
+      myDeadline: this.deadline
     }
   }
 }

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import LeftColumn from '../components/LeftColumn.vue'
-import BaseList from '../components/BaseList.vue'
+import TheLeftColumn from '../components/TheLeftColumn.vue'
+import TheBaseList from '../components/TheBaseList.vue'
 import LoginPage from '../components/Login.vue'
 
 Vue.use(VueRouter)
@@ -15,8 +15,8 @@ const routes = [
   {
     path: '/list',
     components: {
-      default: BaseList,
-      sidebar: LeftColumn
+      default: TheBaseList,
+      sidebar: TheLeftColumn
     }
   },
   {
