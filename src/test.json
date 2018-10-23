@@ -1,5 +1,5 @@
 {
-    "itemCount": 12,
+    "itemCount": 10,
     "showingListIndex": 0,
     "userInfo": {
       "username": "JerryChan",
@@ -10,21 +10,21 @@
         "listName": "Inbox",
         "todoList": [{
           "itemId": 1,
-          "title": "todo1",
-          "deadline": "2018/10/19",
+          "title": "这是一个模仿 Wunderlist 的练手项目",
+          "deadline": "2017-1-1",
           "value": false,
-          "isStarred": false
+          "isStarred": true
         }, {
           "itemId": 2,
-          "title": "todo2",
-          "deadline": "2018/10/20",
+          "title": "单击 TODO 项可以修改内容和时间",
+          "deadline": "2018-10-20",
           "value": false,
           "isStarred": false
         }],
         "completedList": [{
           "itemId": 3,
-          "title": "todo3",
-          "deadline": "2018/10/21",
+          "title": "example-todo-item",
+          "deadline": "2018-10-21",
           "value": true,
           "isStarred": false
         }, {
@@ -34,32 +34,56 @@
           "value": true,
           "isStarred": false
         }]}, {
-        "listName": "List1",
+        "listName": "工作",
         "todoList": [{
           "itemId": 5,
-          "title": "todo5",
+          "title": "找工作",
           "deadline": "",
           "value": false,
           "isStarred": false
         }, {
           "itemId": 6,
-          "title": "todo6",
+          "title": "或者找实习",
           "deadline": "",
           "value": false,
           "isStarred": false
         }],
         "completedList": [{
           "itemId": 7,
-          "title": "todo7",
-          "deadline": "",
-          "value": true,
-          "isStarred": false
-        }, {
-          "itemId": 8,
-          "title": "todo8",
+          "title": "目前两样都没有：（",
           "deadline": "",
           "value": true,
           "isStarred": false
         }]
+      }, {
+        "listName": "学习",
+        "todoList": [{
+          "itemId": 8,
+          "title": "继续深入学习Vue.js",
+          "deadline": "",
+          "value": false,
+          "isStarred": false
+        }, {
+          "itemId": 9,
+          "title": "学一点 node.js",
+          "deadline": "",
+          "value": false,
+          "isStarred": false
+        }],
+        "completedList": [{
+          "itemId": 10,
+          "title": "打好 HTML/JS/CSS 的基础",
+          "deadline": "",
+          "value": true,
+          "isStarred": false
+        }]
+      }, {
+        "listName": "电影",
+        "todoList": [],
+        "completedList": []
+      }, {
+        "listName": "生活",
+        "todoList": [],
+        "completedList": []
       }]
 }

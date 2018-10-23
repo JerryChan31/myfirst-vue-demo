@@ -5,7 +5,7 @@
       <v-icon name="edit"></v-icon>
       <span> Title</span>
     </div><div>
-      <input type="text" v-model="myTitle">
+      <input type="text" v-model="myTitle" class="title">
     </div>
     <div>
       <v-icon name="edit"></v-icon>
@@ -23,7 +23,7 @@
     -->
     <div class="button-area">
       <button class="confirm" @click="commitEdit">确认</button>
-      <button class="cancel" @click="closeWindow">取消</button>
+      <button class="cancel" @click="closeWindow">删除</button>
     </div>
   </div>
 </template>
@@ -59,11 +59,11 @@ export default {
 
 <style lang="less" scoped>
 @button-color-red: #71AF8C;
-@button-color-blue:  #008CBA;
+@button-color-blue:  rgb(221, 7, 7);
 @button-padding: 10px 20px 10px 20px;
 @space-between: 10px;
 
-div.form{
+.form{
   width: 380px;
   color: grey;
   font-size: 20px;
@@ -72,24 +72,19 @@ div.form{
     margin-top: 20px;
     text-align: center;
   }
-  div.button-area {
+  .button-area {
     margin-top: 30px;
     text-align: center;
   }
 }
 
-input {
+.title {
   border: 0;
   border-bottom: 1px solid black;
   background-color: transparent;
   outline: none;
   text-align: center;
-  &[name="year"] {
-    width: 4em;
-  }
-  &[name="month"],&[name="day"] {
-    width: 2em;
-  }
+  width: 100%;
 }
 
 button {

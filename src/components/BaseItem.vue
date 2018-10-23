@@ -57,7 +57,7 @@ export default {
     isExpired: function () {
       let now = Date.now()
       let temp = Date.parse(this.deadline)
-      return now - temp > 0
+      return now - temp > 1000*60*60*24 // a day
     }
   },
   components: {

@@ -6,16 +6,18 @@
     </div>
     <div class="list-body">
       <add-bar></add-bar>
-      <div>
-        <base-item v-for="(todo, index) in showingTodoList" v-bind="todo" :key="todo.itemId" v-model="todo.value" v-on:change="itemDone(index)"></base-item>
+      <transition-group name="trans-item">
+      <div key="todo">
+          <base-item v-for="(todo, index) in showingTodoList" v-bind="todo" :key="todo.itemId" v-on:change="itemDone(index)"></base-item>
       </div>
-      <div>
+      <div key="togglebutton">
         <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
         <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
       </div>
-      <div v-show="isCompletedShown">
+      <div v-show="isCompletedShown" key="completed">
         <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
       </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -39,7 +41,7 @@ export default {
     },
     // sort by whether the items are starred.
     showingTodoList () {
-      return this.showingList.todoList.slice().sort((a, b) => {
+      return this.showingList.todoList.sort((a, b) => {
         return (a.isStarred === false && b.isStarred === true)
       })
     }
@@ -115,4 +117,17 @@ label {
   height: @name-bar-height;
   padding: @name-bar-padding;
 }
+.trans-item-enter-active, .trans-item-leave-active, .trans-item-move {
+  transition: all 0.5s;
+}
+
+.trans-item-enter, .trans-item-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.trans-list-move {
+  transition: all 0.5s;
+}
+
 </style>
