@@ -6,17 +6,26 @@
     </div>
     <div class="list-body">
       <add-bar></add-bar>
-      <transition-group name="trans-item">
-      <div key="todo">
-          <base-item v-for="(todo, index) in showingTodoList" v-bind="todo" :key="todo.itemId" v-on:change="itemDone(index)"></base-item>
-      </div>
+      <transition-group 
+       name="list"
+      >
+        <base-item 
+         v-for="(todo, index) in showingTodoList" 
+         v-bind="todo" 
+         :key="todo.itemId" 
+         @change="itemDone(index)">
+        </base-item>
       <div key="togglebutton">
-        <label class="notshowing" v-show="!isCompletedShown" v-on:click="toggleShowCompleted(true)"> {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
+        <label 
+         class="notshowing"
+         v-show="!isCompletedShown"
+         v-on:click="toggleShowCompleted(true)">
+       {{ showingList.completedList.length }} COMPLETED TO-DOS </label>
         <label class="showing" v-show="isCompletedShown" v-on:click="toggleShowCompleted(false)"> HIDE COMPLETED TO-DOS </label>
       </div>
-      <div v-show="isCompletedShown" key="completed">
-        <base-item class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
-      </div>
+        
+        <base-item v-show="isCompletedShown" class="completed-item" v-for="(todo, index) in showingList.completedList" v-bind="todo" :key="todo.itemId" v-on:change="itemCancelDone(index)"></base-item>
+      
       </transition-group>
     </div>
   </div>
@@ -117,17 +126,22 @@ label {
   height: @name-bar-height;
   padding: @name-bar-padding;
 }
-.trans-item-enter-active, .trans-item-leave-active, .trans-item-move {
+// to be rewritten
+.list-enter-active, .list-leave-active, .list-move {
   transition: all 0.5s;
 }
 
-.trans-item-enter, .trans-item-leave-to {
+.list-enter, .list-leave-to {
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateY(50px);
 }
 
-.trans-list-move {
+.sort {
   transition: all 0.5s;
+}
+
+.appear .appear{
+  transition: all 2s;
 }
 
 </style>

@@ -26,8 +26,6 @@ export default new Vuex.Store({
     itemDone (state, idx) {
       // selfList situtation
       let backup = this.getters.getShowingList.todoList[idx]
-      console.log(idx);
-      console.trace(backup);
       this.getters.getShowingList.todoList.splice(idx, 1)
       backup.value = true
       this.getters.getShowingList.completedList.push(backup)
